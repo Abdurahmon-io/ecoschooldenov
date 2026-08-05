@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Denov 2-IMI Eco-school Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="glass-bg"></div>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <!-- Nimaga kodimni o'qiysan -->
+    <!-- Admin Unlock Hidden Trigger (top left corner) -->
+    <div id="admin-trigger" title="Triple-click to unlock Developer Mode"></div>
+
+    <header class="glass-header">
+        <div class="brand-container">
+            <div class="circular-logo">
+                <i class="fa-solid fa-network-wired it-logo-icon"></i>
+                <i class="fa-solid fa-leaf tree-logo-icon"></i>
+            </div>
+            <div class="brand-text">
+                <div class="logo-text">Denov <span class="highlight">2-IMI</span> Eco-school</div>
+                <div class="slogan">Innovating for a Greener Future</div>
+            </div>
+        </div>
+        <nav>
+            <a href="#dashboard">Dashboard</a>
+            <a href="#eco-alerts">Eco-Alerts</a>
+            <a href="#edu-hub">Education Hub</a>
+        </nav>
+        <div class="admin-status" id="admin-status-badge">
+            <i class="fa-solid fa-user-lock"></i> Guest Mode
+        </div>
+    </header>
+
+    <main>
+        <!-- Intro Hero -->
+        <section class="hero glass-panel">
+            <div class="hero-content">
+                <h1>Welcome to our <span>Green Future</span></h1>
+                <p>Monitor our school's ecology, learn about the environment, and join our eco-projects for a sustainable tomorrow.</p>
+                <a href="#dashboard" class="btn primary-btn">Explore Dashboard</a>
+            </div>
+            <div class="hero-illustration">
+                <i class="fa-solid fa-earth-americas eco-globe"></i>
+            </div>
+        </section>
+
+        <!-- Inventory Dashboard -->
+        <section id="dashboard" class="dashboard glass-panel">
+            <h2><i class="fa-solid fa-chart-pie"></i> Flora Inventory Tracker</h2>
+            <div class="inventory-grid">
+                <!-- Trees Card -->
+                <div class="inventory-card">
+                    <div class="card-icon trees-icon">
+                        <i class="fa-solid fa-tree"></i>
+                    </div>
+                    <h3>Trees Planted</h3>
+                    <div class="count-display" id="tree-count">454</div>
+                    <div class="admin-controls hidden">
+                        <button class="control-btn minus" onclick="updateInventory('tree', -1)"><i class="fa-solid fa-minus"></i></button>
+                        <button class="control-btn plus" onclick="updateInventory('tree', 1)"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                </div>
+                <!-- Flowers Card -->
+                <div class="inventory-card">
+                    <div class="card-icon flowers-icon">
+                        <i class="fa-solid fa-seedling"></i>
+                    </div>
+                    <h3>Flowers Bloomed</h3>
+                    <div class="count-display" id="flower-count">501</div>
+                    <div class="admin-controls hidden">
+                        <button class="control-btn minus" onclick="updateInventory('flower', -1)"><i class="fa-solid fa-minus"></i></button>
+                        <button class="control-btn plus" onclick="updateInventory('flower', 1)"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                </div>
+
+                <!-- Solar Panels Card -->
+                <div class="inventory-card">
+                    <div class="card-icon solar-icon">
+                        <i class="fa-solid fa-solar-panel"></i>
+                    </div>
+                    <h3>Solar Panels (<span id="solar-area">24</span> m²)</h3>
+                    <div class="count-display" id="solar-count">12</div>
+                    <div class="admin-controls hidden">
+                        <button class="control-btn minus" onclick="updateInventory('solar', -1)" title="Subtract Panel"><i class="fa-solid fa-minus"></i></button>
+                        <button class="control-btn plus" onclick="updateInventory('solar', 1)" title="Add Panel"><i class="fa-solid fa-plus"></i></button>
+                        <button class="control-btn edit-area" onclick="editSolarArea()" title="Edit Area (m²)"><i class="fa-solid fa-pen"></i></button>
+                    </div>
+                </div>
+
+                <!-- Air Quality Impact Card -->
+                <div class="inventory-card science-card">
+                    <div class="card-icon air-icon">
+                        <i class="fa-solid fa-wind"></i>
+                    </div>
+                    <h3>Air Quality Impact</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <i class="fa-solid fa-cloud"></i>
+                            <div class="stat-val" id="co2-absorbed">0</div>
+                            <div class="stat-label">kg CO₂ Absorbed / Day</div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fa-solid fa-droplet"></i>
+                            <div class="stat-val" id="o2-produced">0</div>
+                            <div class="stat-label">kg O₂ Produced / Day</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Eco Alerts -->
+        <section id="eco-alerts" class="eco-alerts glass-panel">
+            <h2><i class="fa-solid fa-triangle-exclamation"></i> Dynamic Eco-Alerts</h2>
+            <div class="alert-carousel-container">
+                <div id="dynamic-alert-wrapper" class="alert-wrapper">
+                    <!-- Javascript will inject the rotating alerts here -->
+                </div>
+                <div class="alert-progress-bar">
+                    <div id="alert-progress" class="progress-fill"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Educational Hub -->
+        <section id="edu-hub" class="edu-hub">
+            <h2 class="section-title"><i class="fa-solid fa-graduation-cap"></i> Educational Hub</h2>
+            
+            <div class="hub-container">
+                <!-- Gallery -->
+                <div class="gallery glass-panel">
+                    <h3>School Eco-Projects Gallery</h3>
+                    <div class="gallery-grid">
+                        <div class="gallery-item" title="Recycling Drive"><div class="placeholder"><i class="fa-solid fa-recycle"></i><p>Recycling Drive</p></div></div>
+                        <div class="gallery-item" title="Solar Panels Setup"><div class="placeholder"><i class="fa-solid fa-solar-panel"></i><p>Solar Panels</p></div></div>
+                        <div class="gallery-item" title="Composting Pit"><div class="placeholder"><i class="fa-solid fa-leaf"></i><p>Composting</p></div></div>
+                        <div class="gallery-item" title="Water Saving System"><div class="placeholder"><i class="fa-solid fa-hand-holding-droplet"></i><p>Water Saving</p></div></div>
+                    </div>
+                </div>
+
+                <!-- Sliders -->
+                <div class="presentations glass-panel">
+                    <h3>Interactive Ecology Presentations</h3>
+                    <div class="slider-container">
+                        <div class="slide active">
+                            <h4>Climate Change 101</h4>
+                            <p>Understand the basics of global warming, greenhouse gases, and what we as students can do to help.</p>
+                        </div>
+                        <div class="slide">
+                            <h4>Local Biodiversity</h4>
+                            <p>Discover the rich flora and fauna native to our school grounds and the local region.</p>
+                        </div>
+                        <div class="slide">
+                            <h4>Zero Waste Lifestyle</h4>
+                            <p>Practical and actionable tips for reducing your daily waste footprint in school and at home.</p>
+                        </div>
+                        <div class="slider-controls">
+                            <button onclick="changeSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+                            <button onclick="changeSlide(1)"><i class="fa-solid fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Startup Hub & AI Contest -->
+        <section id="startup-hub" class="startup-hub glass-panel">
+            <h2 class="section-title"><i class="fa-solid fa-rocket" style="color:var(--emerald);"></i> Eco-Startup Hub & AI Contest</h2>
+            <p class="section-desc">Submit your innovative eco-friendly startup idea. The AI will evaluate submissions when the developer starts the countdown timer!</p>
+            
+            <div class="startup-container">
+                <!-- Submission Form -->
+                <div class="startup-form-container glass-panel">
+                    <h3>Submit Your Project</h3>
+                    <form id="startup-form">
+                        <div class="input-group">
+                            <label for="project-name"><i class="fa-solid fa-lightbulb"></i> Project Name</label>
+                            <input type="text" id="project-name" placeholder="e.g. GreenTech Recycler" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="full-name"><i class="fa-solid fa-user"></i> Full Name</label>
+                            <input type="text" id="full-name" placeholder="e.g. John Doe" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="phone-number"><i class="fa-solid fa-phone"></i> Phone Number</label>
+                            <input type="number" id="phone-number" placeholder="e.g. +998 90 123 45 67" required>
+                        </div>
+                        <button type="submit" class="btn primary-btn submit-startup-btn">Submit Idea</button>
+                    </form>
+                    <p id="startup-success-msg" class="success-msg hidden">Project Submitted Successfully!</p>
+                </div>
+                
+                <!-- AI Contest Timer & Result Area -->
+                <div class="contest-area glass-panel">
+                    <h3>AI Evaluation Status</h3>
+                    <div class="countdown-circle">
+                        <svg class="progress-ring" height="200" width="200">
+                            <circle class="progress-ring__circle" stroke="var(--emerald)" stroke-width="8" fill="transparent" r="90" cx="100" cy="100"/>
+                        </svg>
+                        <div class="countdown-text" id="countdown-timer">00:00</div>
+                    </div>
+                    
+                    <div class="dev-timer-controls admin-controls hidden">
+                        <p class="admin-hint" style="margin-bottom:10px;">Developer Timer Control</p>
+                        <div style="display: flex; gap: 10px; justify-content: center;">
+                            <input type="number" id="dev-timer-input" placeholder="Seconds" value="10" style="width: 80px; text-align: center; border-radius: 8px; border: none; padding: 5px;">
+                            <button class="btn primary-btn" onclick="startAIContest()">Start Eval</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Eco-Calculator -->
+        <section id="eco-calculator" class="eco-calculator glass-panel">
+            <h2 class="section-title"><i class="fa-solid fa-calculator"></i> Real-time Eco-Calculator</h2>
+            <p class="calc-desc">Enter a hypothetical number of trees and flowers to see their estimated environmental impact.</p>
+            
+            <div class="calc-container">
+                <div class="calc-inputs">
+                    <div class="input-group">
+                        <label for="calc-trees"><i class="fa-solid fa-tree" style="color:var(--emerald);"></i> Number of Trees</label>
+                        <input type="number" id="calc-trees" min="0" value="10" placeholder="e.g. 10">
+                    </div>
+                    <div class="input-group">
+                        <label for="calc-flowers"><i class="fa-solid fa-seedling" style="color:#f1c40f;"></i> Number of Flowers</label>
+                        <input type="number" id="calc-flowers" min="0" value="50" placeholder="e.g. 50">
+                    </div>
+                    <div class="input-group">
+                        <label for="calc-solar-count"><i class="fa-solid fa-solar-panel" style="color:#f1c40f;"></i> Number of Solar Panels</label>
+                        <input type="number" id="calc-solar-count" min="0" value="12" placeholder="e.g. 12">
+                    </div>
+                    <div class="input-group">
+                        <label for="calc-solar-area"><i class="fa-solid fa-ruler-combined" style="color:#e67e22;"></i> Total Panel Area (m²)</label>
+                        <input type="number" id="calc-solar-area" min="0" value="24" placeholder="e.g. 24">
+                    </div>
+                </div>
+                
+                <div class="calc-results">
+                    <div class="calc-stat-item">
+                        <i class="fa-solid fa-cloud"></i>
+                        <div class="stat-val" id="calc-dynamic-co2">0.85</div>
+                        <div class="stat-label">Estimated kg CO₂ Reduced / Day</div>
+                    </div>
+                    <div class="calc-stat-item">
+                        <i class="fa-solid fa-droplet" style="color:var(--skyblue);"></i>
+                        <div class="stat-val" id="calc-dynamic-o2">4.20</div>
+                        <div class="stat-label">Estimated kg O₂ Produced / Day</div>
+                    </div>
+                    <div class="calc-stat-item">
+                        <i class="fa-solid fa-bolt" style="color:#f1c40f;"></i>
+                        <div class="stat-val" id="calc-dynamic-energy">0.0</div>
+                        <div class="stat-label">Estimated kWh Generated / Day</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="glass-footer">
+        <p>&copy; 2026 Denov 2-IMI Eco-school. Crafted with <i class="fa-solid fa-heart" style="color:var(--emerald);"></i> for the Earth.</p>
+    </footer>
+
+    <!-- AI Contest Winner Modal -->
+    <div id="winner-modal" class="modal-overlay hidden">
+        <div class="modal glass-panel winner-card">
+            <h2 class="winner-title">🏆 AI Evaluation Complete! 🏆</h2>
+            <div class="winner-icon"><i class="fa-solid fa-award"></i></div>
+            <p class="winner-subtitle">The Eco-Friendly Startup Winner is:</p>
+            <h3 id="winner-name" class="winner-name">John Doe</h3>
+            <p>Project: <span id="winner-project" class="highlight">GreenTech Recycler</span></p>
+            <div class="modal-actions" style="margin-top: 2rem;">
+                <button class="btn primary-btn" onclick="closeWinnerModal()">Celebrate!</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Login Modal -->
+    <div id="admin-modal" class="modal-overlay hidden">
+        <div class="modal glass-panel">
+            <h2><i class="fa-solid fa-user-shield"></i> Developer Mode</h2>
+            <p>Enter password to unlock inventory controls and modify the counts.</p>
+            <input type="password" id="admin-password" placeholder="Password (hint: eco2026)">
+            <div class="modal-actions">
+                <button class="btn secondary-btn" onclick="closeAdminModal()">Cancel</button>
+                <button class="btn primary-btn" onclick="verifyAdmin()">Unlock Access</button>
+            </div>
+            <p id="login-error" class="error-msg hidden">Incorrect password. Access denied.</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
