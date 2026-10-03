@@ -8,13 +8,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
+<body data-theme="dark">
     <div class="glass-bg"></div>
     <div class="blob blob-1"></div>
     <div class="blob blob-2"></div>
     <!-- Nimaga kodimni o'qiysan -->
     <!-- Admin Unlock Hidden Trigger (top left corner) -->
-    <div id="admin-trigger" title="Triple-click to unlock Developer Mode"></div>
+    <div id="admin-trigger" title="Triple-click to unlock Developer Mode" data-i18n-title="adminTriggerTitle"></div>
 
     <header class="glass-header">
         <div class="brand-container">
@@ -24,14 +24,28 @@
             </div>
             <div class="brand-text">
                 <div class="logo-text">Denov <span class="highlight">2-IMI</span> Eco-school</div>
-                <div class="slogan">Innovating for a Greener Future</div>
+                <div class="slogan" data-i18n="slogan">Innovating for a Greener Future</div>
             </div>
         </div>
         <nav>
-            <a href="#dashboard">Dashboard</a>
-            <a href="#eco-alerts">Eco-Alerts</a>
-            <a href="#edu-hub">Education Hub</a>
+            <a href="#dashboard" data-i18n="navDashboard">Dashboard</a>
+            <a href="#eco-alerts" data-i18n="navAlerts">Eco-Alerts</a>
+            <a href="#edu-hub" data-i18n="navEducation">Education Hub</a>
+            <a href="#leadership" data-i18n="navLeadership">Leadership</a>
         </nav>
+        <label class="language-picker">
+            <span class="visually-hidden" data-i18n="languageLabel">Language</span>
+            <i class="fa-solid fa-globe" aria-hidden="true"></i>
+            <select id="language-select" aria-label="Select language" data-i18n-aria="languageLabel">
+                <option value="en">English</option>
+                <option value="uz">O‘zbekcha</option>
+                <option value="ru">Русский</option>
+            </select>
+        </label>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to light mode">
+            <i class="fa-solid fa-sun" id="theme-icon" aria-hidden="true"></i>
+            <span id="theme-label">Light mode</span>
+        </button>
         <div class="admin-status" id="admin-status-badge">
             <i class="fa-solid fa-user-lock"></i> Guest Mode
         </div>
@@ -41,9 +55,9 @@
         <!-- Intro Hero -->
         <section class="hero glass-panel">
             <div class="hero-content">
-                <h1>Welcome to our <span>Green Future</span></h1>
-                <p>Monitor our school's ecology, learn about the environment, and join our eco-projects for a sustainable tomorrow.</p>
-                <a href="#dashboard" class="btn primary-btn">Explore Dashboard</a>
+                <h1><span data-i18n="heroWelcome">Welcome to our</span> <span data-i18n="heroGreenFuture">Green Future</span></h1>
+                <p data-i18n="heroDescription">Monitor our school's ecology, learn about the environment, and join our eco-projects for a sustainable tomorrow.</p>
+                <a href="#dashboard" class="btn primary-btn" data-i18n="heroButton">Explore Dashboard</a>
             </div>
             <div class="hero-illustration">
                 <i class="fa-solid fa-earth-americas eco-globe"></i>
@@ -52,14 +66,18 @@
 
         <!-- Inventory Dashboard -->
         <section id="dashboard" class="dashboard glass-panel">
-            <h2><i class="fa-solid fa-chart-pie"></i> Flora Inventory Tracker</h2>
+            <h2><i class="fa-solid fa-chart-pie"></i> <span data-i18n="inventoryTitle">Flora Inventory Tracker</span></h2>
+            <div class="dashboard-shortcuts" aria-label="Dashboard sections" data-i18n-aria="dashboardSections">
+                <a href="#leadership"><i class="fa-solid fa-people-group" aria-hidden="true"></i> <span data-i18n="organizationLeaders">Organization Leaders</span></a>
+                <a href="#students"><i class="fa-solid fa-user-graduate" aria-hidden="true"></i> <span data-i18n="studentsCount">Students (10)</span></a>
+            </div>
             <div class="inventory-grid">
                 <!-- Trees Card -->
                 <div class="inventory-card">
                     <div class="card-icon trees-icon">
                         <i class="fa-solid fa-tree"></i>
                     </div>
-                    <h3>Trees Planted</h3>
+                    <h3 data-i18n="treesPlanted">Trees Planted</h3>
                     <div class="count-display" id="tree-count">454</div>
                     <div class="admin-controls hidden">
                         <button class="control-btn minus" onclick="updateInventory('tree', -1)"><i class="fa-solid fa-minus"></i></button>
@@ -71,7 +89,7 @@
                     <div class="card-icon flowers-icon">
                         <i class="fa-solid fa-seedling"></i>
                     </div>
-                    <h3>Flowers Bloomed</h3>
+                    <h3 data-i18n="flowersBloomed">Flowers Bloomed</h3>
                     <div class="count-display" id="flower-count">501</div>
                     <div class="admin-controls hidden">
                         <button class="control-btn minus" onclick="updateInventory('flower', -1)"><i class="fa-solid fa-minus"></i></button>
@@ -84,12 +102,12 @@
                     <div class="card-icon solar-icon">
                         <i class="fa-solid fa-solar-panel"></i>
                     </div>
-                    <h3>Solar Panels (<span id="solar-area">24</span> m²)</h3>
+                    <h3><span data-i18n="solarPanelsText">Solar Panels</span> (<span id="solar-area">24</span> m²)</h3>
                     <div class="count-display" id="solar-count">12</div>
                     <div class="admin-controls hidden">
-                        <button class="control-btn minus" onclick="updateInventory('solar', -1)" title="Subtract Panel"><i class="fa-solid fa-minus"></i></button>
-                        <button class="control-btn plus" onclick="updateInventory('solar', 1)" title="Add Panel"><i class="fa-solid fa-plus"></i></button>
-                        <button class="control-btn edit-area" onclick="editSolarArea()" title="Edit Area (m²)"><i class="fa-solid fa-pen"></i></button>
+                        <button class="control-btn minus" onclick="updateInventory('solar', -1)" title="Subtract Panel" data-i18n-title="subtractPanel"><i class="fa-solid fa-minus"></i></button>
+                        <button class="control-btn plus" onclick="updateInventory('solar', 1)" title="Add Panel" data-i18n-title="addPanel"><i class="fa-solid fa-plus"></i></button>
+                        <button class="control-btn edit-area" onclick="editSolarArea()" title="Edit Area (m²)" data-i18n-title="editPanelArea"><i class="fa-solid fa-pen"></i></button>
                     </div>
                 </div>
 
@@ -98,17 +116,17 @@
                     <div class="card-icon air-icon">
                         <i class="fa-solid fa-wind"></i>
                     </div>
-                    <h3>Air Quality Impact</h3>
+                    <h3 data-i18n="airQualityTitle">Air Quality Impact</h3>
                     <div class="stats-grid">
                         <div class="stat-item">
                             <i class="fa-solid fa-cloud"></i>
                             <div class="stat-val" id="co2-absorbed">0</div>
-                            <div class="stat-label">kg CO₂ Absorbed / Day</div>
+                            <div class="stat-label" data-i18n="co2PerDay">kg CO₂ Absorbed / Day</div>
                         </div>
                         <div class="stat-item">
                             <i class="fa-solid fa-droplet"></i>
                             <div class="stat-val" id="o2-produced">0</div>
-                            <div class="stat-label">kg O₂ Produced / Day</div>
+                            <div class="stat-label" data-i18n="o2PerDay">kg O₂ Produced / Day</div>
                         </div>
                     </div>
                 </div>
@@ -117,7 +135,7 @@
 
         <!-- Eco Alerts -->
         <section id="eco-alerts" class="eco-alerts glass-panel">
-            <h2><i class="fa-solid fa-triangle-exclamation"></i> Dynamic Eco-Alerts</h2>
+            <h2><i class="fa-solid fa-triangle-exclamation"></i> <span data-i18n="alertsTitle">Dynamic Eco-Alerts</span></h2>
             <div class="alert-carousel-container">
                 <div id="dynamic-alert-wrapper" class="alert-wrapper">
                     <!-- Javascript will inject the rotating alerts here -->
@@ -130,75 +148,142 @@
 
         <!-- Educational Hub -->
         <section id="edu-hub" class="edu-hub">
-            <h2 class="section-title"><i class="fa-solid fa-graduation-cap"></i> Educational Hub</h2>
+            <h2 class="section-title"><i class="fa-solid fa-graduation-cap"></i> <span data-i18n="educationTitle">Educational Hub</span></h2>
             
             <div class="hub-container">
                 <!-- Gallery -->
                 <div class="gallery glass-panel">
-                    <h3>School Eco-Projects Gallery</h3>
+                    <h3 data-i18n="galleryTitle">School Eco-Projects Gallery</h3>
                     <div class="gallery-grid">
-                        <div class="gallery-item" title="Recycling Drive"><div class="placeholder"><i class="fa-solid fa-recycle"></i><p>Recycling Drive</p></div></div>
-                        <div class="gallery-item" title="Solar Panels Setup"><div class="placeholder"><i class="fa-solid fa-solar-panel"></i><p>Solar Panels</p></div></div>
-                        <div class="gallery-item" title="Composting Pit"><div class="placeholder"><i class="fa-solid fa-leaf"></i><p>Composting</p></div></div>
-                        <div class="gallery-item" title="Water Saving System"><div class="placeholder"><i class="fa-solid fa-hand-holding-droplet"></i><p>Water Saving</p></div></div>
+                        <div class="gallery-item" title="Recycling Drive" data-i18n-title="recyclingDrive"><div class="placeholder"><i class="fa-solid fa-recycle"></i><p data-i18n="recyclingDrive">Recycling Drive</p></div></div>
+                        <div class="gallery-item" title="Solar Panels Setup" data-i18n-title="solarPanelsSetup"><div class="placeholder"><i class="fa-solid fa-solar-panel"></i><p data-i18n="solarPanelsSetup">Solar Panels</p></div></div>
+                        <div class="gallery-item" title="Composting Pit" data-i18n-title="compostingPit"><div class="placeholder"><i class="fa-solid fa-leaf"></i><p data-i18n="compostingPit">Composting</p></div></div>
+                        <div class="gallery-item" title="Water Saving System" data-i18n-title="waterSaving"><div class="placeholder"><i class="fa-solid fa-hand-holding-droplet"></i><p data-i18n="waterSaving">Water Saving</p></div></div>
                     </div>
                 </div>
 
                 <!-- Sliders -->
                 <div class="presentations glass-panel">
-                    <h3>Interactive Ecology Presentations</h3>
+                    <h3 data-i18n="presentationsTitle">Interactive Ecology Presentations</h3>
                     <div class="slider-container">
                         <div class="slide active">
-                            <h4>Climate Change 101</h4>
-                            <p>Understand the basics of global warming, greenhouse gases, and what we as students can do to help.</p>
+                            <h4 data-i18n="climateTitle">Climate Change 101</h4>
+                            <p data-i18n="climateDescription">Understand the basics of global warming, greenhouse gases, and what we as students can do to help.</p>
                         </div>
                         <div class="slide">
-                            <h4>Local Biodiversity</h4>
-                            <p>Discover the rich flora and fauna native to our school grounds and the local region.</p>
+                            <h4 data-i18n="biodiversityTitle">Local Biodiversity</h4>
+                            <p data-i18n="biodiversityDescription">Discover the rich flora and fauna native to our school grounds and the local region.</p>
                         </div>
                         <div class="slide">
-                            <h4>Zero Waste Lifestyle</h4>
-                            <p>Practical and actionable tips for reducing your daily waste footprint in school and at home.</p>
+                            <h4 data-i18n="zeroWasteTitle">Zero Waste Lifestyle</h4>
+                            <p data-i18n="zeroWasteDescription">Practical and actionable tips for reducing your daily waste footprint in school and at home.</p>
                         </div>
                         <div class="slider-controls">
-                            <button onclick="changeSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
-                            <button onclick="changeSlide(1)"><i class="fa-solid fa-chevron-right"></i></button>
+                            <button onclick="changeSlide(-1)" aria-label="Previous presentation" data-i18n-aria="previousPresentation"><i class="fa-solid fa-chevron-left"></i></button>
+                            <button onclick="changeSlide(1)" aria-label="Next presentation" data-i18n-aria="nextPresentation"><i class="fa-solid fa-chevron-right"></i></button>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Leadership and founders section with four responsive cards. -->
+        <section id="leadership" class="leadership-section">
+            <div class="section-heading">
+                <p class="section-tag" data-i18n="leadershipTag">Leadership / Founders</p>
+                    <h2 class="section-title"><i class="fa-solid fa-people-group"></i> <span data-i18n="leadershipTitle">Founders &amp; Leadership Team</span></h2>
+            </div>
+
+            <div class="leader-grid">
+                <article class="leader-card">
+                    <img class="leader-photo" src="images/leader1.png" alt="Portrait of Sapiyeva Nargiza Mamayusupovna" data-i18n-alt="leader1Alt" loading="lazy">
+                    <div class="leader-body">
+                        <h3>Sapiyeva Nargiza Mamayusupovna</h3>
+                        <p class="leader-role" data-i18n="leader1Role">Direktor</p>
+                        <p class="leader-bio" data-i18n="leader1Bio">Sapiyeva Nargiza Mamayusupovna — Denov tuman 2-son ixtisoslashtirilgan maktab-internati direktori, ta’lim boshqaruvi va pedagogik jamoani rivojlantirishga e’tibor qaratib kelayotgan tajribali rahbar. U ta’lim sifatini oshirish, pedagoglarning kasbiy rivojlanishini qo‘llab-quvvatlash va o‘quvchilarning yuqori natijalarga erishishi uchun samarali boshqaruv hamda zamonaviy pedagogik yondashuvlarni qo‘llashga alohida e’tibor beradi. Iqtisodiyot fanlari bo‘yicha PhD erkin tadqiqotchi sifatida o‘z ilmiy ishlarini olib bormoqda.</p>
+                        <button class="leader-toggle" type="button" aria-expanded="false">Show more</button>
+                    </div>
+                </article>
+
+                <article class="leader-card">
+                    <img class="leader-photo" src="images/leader2.png" alt="Portrait of Suxrob Xodjaqulov" data-i18n-alt="leader2Alt" loading="lazy">
+                    <div class="leader-body">
+                        <h3>Suxrob Xodjaqulov</h3>
+                        <p class="leader-role" data-i18n="leader2Role">MMIBDO'</p>
+                        <p class="leader-bio" data-i18n="leader2Bio">O‘z sohasining yetuk mutaxassisi bo‘lib, yuksak salohiyat va boy tajribaga ega. Ma’rifat va ma’naviyat yo‘nalishida samarali faoliyat olib borib, yoshlar tarbiyasi hamda ularning ongida milliy va umuminsoniy qadriyatlarni shakllantirishda alohida jonbozlik ko‘rsatib kelmoqda. Tashabbuskorligi, mas’uliyati va fidoyiligi bilan jamoada katta hurmatga sazovor.</p>
+                        <button class="leader-toggle" type="button" aria-expanded="false">Show more</button>
+                    </div>
+                </article>
+
+                <article class="leader-card">
+                    <img class="leader-photo" src="images/leader3.png" alt="Portrait of Dilnoza Rashidova" data-i18n-alt="leader3Alt" loading="lazy">
+                    <div class="leader-body">
+                        <h3>Dilnoza Rashidova</h3>
+                        <p class="leader-role" data-i18n="leader3Role">Ota-onalar qo‘mitasi a’zosi</p>
+                        <p class="leader-bio" data-i18n="leader3Bio">DTPI Filologiya fakultetining ingliz tili yo‘nalishi tayanch doktoranti hamda ingliz tili fani bo‘yicha oliy toifali o‘qituvchi. Ilmiy yo‘nalishi asosan lingvistika, diniy diskurs, islomiy diskurs va diniy-madaniy realiyalarni ingliz tilida ifodalash va tarjima qilish masalalariga qaratilgan.</p>
+                        <button class="leader-toggle" type="button" aria-expanded="false">Show more</button>
+                    </div>
+                </article>
+
+                <article class="leader-card">
+                    <img class="leader-photo" src="images/leader4.png" alt="Portrait of Sohibjamol Avazova" data-i18n-alt="leader4Alt" loading="lazy">
+                    <div class="leader-body">
+                        <h3>Sohibjamol Avazova</h3>
+                        <p class="leader-role" data-i18n="leader4Role">Loyiha koordinatori</p>
+                        <p class="leader-bio" data-i18n="leader4Bio">Oliy Majlis Qonunchilik palatasi huzuridagi Yoshlar Parlamenti a’zosi va O‘zbekiston Ekologik partiyasi a’zosi. “Eco-Schools Uzbekistan” loyihasining Surxondaryo viloyati hududiy mentori hamda Denov tuman 2-son ixtisoslashtirilgan maktab-internati koordinatori. Maktabda ekologik ta’lim, yashil tashabbuslar va o‘quvchilarning ekologik faolligini rivojlantirish bo‘yicha loyihalarni amalga oshiradi.</p>
+                        <button class="leader-toggle" type="button" aria-expanded="false">Show more</button>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Ten numbered spaces are ready for student names and class details. -->
+        <section id="students" class="students-section">
+            <h2 class="section-title"><i class="fa-solid fa-user-graduate"></i> <span data-i18n="studentsTitle">Students</span></h2>
+            <div class="student-grid">
+                <article class="student-slot"><img class="student-avatar" src="images/students/student1.png" alt="Parvina Ikromova rasmi" data-i18n-alt="student1Alt" loading="lazy"><div><h3>Parvina Ikromova</h3><p data-i18n="student1Class">11-T · Mentor o‘quvchi</p></div></article>
+                <article class="student-slot"><img class="student-avatar" src="images/students/student2.png" alt="Oybek Baratov rasmi" data-i18n-alt="student2Alt" loading="lazy"><div><h3>Oybek Baratov</h3><p>9-A<sup>2</sup></p></div></article>
+                <article class="student-slot"><img class="student-avatar" src="images/students/student3.png" alt="Parizoda Normurodova rasmi" data-i18n-alt="student3Alt" loading="lazy"><div><h3>Parizoda Normurodova</h3><p>10-T</p></div></article>
+                <article class="student-slot"><img class="student-avatar" src="images/students/student4.png" alt="Sardor Saidahmatov rasmi" data-i18n-alt="student4Alt" loading="lazy"><div><h3>Sardor Saidahmatov</h3><p>11-A</p></div></article>
+                <article class="student-slot"><img class="student-avatar" src="images/students/student5.png" alt="Muhammadali Yo‘ldoshov rasmi" data-i18n-alt="student5Alt" loading="lazy"><div><h3>Muhammadali Yo‘ldoshov</h3><p>8-A</p></div></article>
+                <article class="student-slot"><img class="student-avatar" src="images/students/student6.png" alt="Dildora Muxamedova rasmi" data-i18n-alt="student6Alt" loading="lazy"><div><h3>Dildora Muxamedova</h3><p>10-T</p></div></article>
+                <article class="student-slot"><img class="student-avatar" src="images/students/student7.png" alt="Salomat Baratova rasmi" data-i18n-alt="student7Alt" loading="lazy"><div><h3>Salomat Baratova</h3><p>11-T</p></div></article>
+                <article class="student-slot"><img class="student-avatar" src="images/students/student8.png" alt="Umar Mamatmurodov rasmi" data-i18n-alt="student8Alt" loading="lazy"><div><h3>Umar Mamatmurodov</h3><p>11-A</p></div></article>
+                <article class="student-slot"><img class="student-avatar" src="images/students/student9.png" alt="Asal Baxtiyorova rasmi" data-i18n-alt="student9Alt" loading="lazy"><div><h3>Asal Baxtiyorova</h3><p>8-A</p></div></article>
+                <article class="student-slot"><img class="student-avatar" src="images/students/student10.png" alt="Diyorbek Begmamatov rasmi" data-i18n-alt="student10Alt" loading="lazy"><div><h3>Diyorbek Begmamatov</h3><p>9-A<sup>2</sup></p></div></article>
+            </div>
+        </section>
+
         <!-- Startup Hub & AI Contest -->
         <section id="startup-hub" class="startup-hub glass-panel">
-            <h2 class="section-title"><i class="fa-solid fa-rocket" style="color:var(--emerald);"></i> Eco-Startup Hub & AI Contest</h2>
-            <p class="section-desc">Submit your innovative eco-friendly startup idea. The AI will evaluate submissions when the developer starts the countdown timer!</p>
+            <h2 class="section-title"><i class="fa-solid fa-rocket" style="color:var(--emerald);"></i> <span data-i18n="startupTitle">Eco-Startup Hub &amp; AI Contest</span></h2>
+            <p class="section-desc" data-i18n="startupDescription">Submit your innovative eco-friendly startup idea. The AI will evaluate submissions when the developer starts the countdown timer!</p>
             
             <div class="startup-container">
                 <!-- Submission Form -->
                 <div class="startup-form-container glass-panel">
-                    <h3>Submit Your Project</h3>
+                    <h3 data-i18n="submitProjectTitle">Submit Your Project</h3>
                     <form id="startup-form">
                         <div class="input-group">
-                            <label for="project-name"><i class="fa-solid fa-lightbulb"></i> Project Name</label>
-                            <input type="text" id="project-name" placeholder="e.g. GreenTech Recycler" required>
+                            <label for="project-name"><i class="fa-solid fa-lightbulb"></i> <span data-i18n="projectName">Project Name</span></label>
+                            <input type="text" id="project-name" placeholder="e.g. GreenTech Recycler" data-i18n-placeholder="projectPlaceholder" required>
                         </div>
                         <div class="input-group">
-                            <label for="full-name"><i class="fa-solid fa-user"></i> Full Name</label>
-                            <input type="text" id="full-name" placeholder="e.g. John Doe" required>
+                            <label for="full-name"><i class="fa-solid fa-user"></i> <span data-i18n="fullName">Full Name</span></label>
+                            <input type="text" id="full-name" placeholder="e.g. John Doe" data-i18n-placeholder="namePlaceholder" required>
                         </div>
                         <div class="input-group">
-                            <label for="phone-number"><i class="fa-solid fa-phone"></i> Phone Number</label>
-                            <input type="number" id="phone-number" placeholder="e.g. +998 90 123 45 67" required>
+                            <label for="phone-number"><i class="fa-solid fa-phone"></i> <span data-i18n="phoneNumber">Phone Number</span></label>
+                            <input type="tel" id="phone-number" placeholder="e.g. +998 90 123 45 67" data-i18n-placeholder="phonePlaceholder" required>
                         </div>
-                        <button type="submit" class="btn primary-btn submit-startup-btn">Submit Idea</button>
+                        <button type="submit" class="btn primary-btn submit-startup-btn" data-i18n="submitIdea">Submit Idea</button>
                     </form>
-                    <p id="startup-success-msg" class="success-msg hidden">Project Submitted Successfully!</p>
+                    <p id="startup-success-msg" class="success-msg hidden" data-i18n="projectSuccess">Project Submitted Successfully!</p>
                 </div>
                 
                 <!-- AI Contest Timer & Result Area -->
                 <div class="contest-area glass-panel">
-                    <h3>AI Evaluation Status</h3>
+                    <h3 data-i18n="evaluationStatus">AI Evaluation Status</h3>
                     <div class="countdown-circle">
                         <svg class="progress-ring" height="200" width="200">
                             <circle class="progress-ring__circle" stroke="var(--emerald)" stroke-width="8" fill="transparent" r="90" cx="100" cy="100"/>
@@ -207,10 +292,10 @@
                     </div>
                     
                     <div class="dev-timer-controls admin-controls hidden">
-                        <p class="admin-hint" style="margin-bottom:10px;">Developer Timer Control</p>
+                        <p class="admin-hint" style="margin-bottom:10px;" data-i18n="timerControl">Developer Timer Control</p>
                         <div style="display: flex; gap: 10px; justify-content: center;">
-                            <input type="number" id="dev-timer-input" placeholder="Seconds" value="10" style="width: 80px; text-align: center; border-radius: 8px; border: none; padding: 5px;">
-                            <button class="btn primary-btn" onclick="startAIContest()">Start Eval</button>
+                            <input type="number" id="dev-timer-input" placeholder="Seconds" data-i18n-placeholder="secondsPlaceholder" value="10" style="width: 80px; text-align: center; border-radius: 8px; border: none; padding: 5px;">
+                            <button class="btn primary-btn" onclick="startAIContest()" data-i18n="startEvaluation">Start Eval</button>
                         </div>
                     </div>
                 </div>
@@ -219,26 +304,26 @@
 
         <!-- Final Eco-Calculator -->
         <section id="eco-calculator" class="eco-calculator glass-panel">
-            <h2 class="section-title"><i class="fa-solid fa-calculator"></i> Real-time Eco-Calculator</h2>
-            <p class="calc-desc">Enter a hypothetical number of trees and flowers to see their estimated environmental impact.</p>
+            <h2 class="section-title"><i class="fa-solid fa-calculator"></i> <span data-i18n="calculatorTitle">Real-time Eco-Calculator</span></h2>
+            <p class="calc-desc" data-i18n="calculatorDescription">Enter a hypothetical number of trees and flowers to see their estimated environmental impact.</p>
             
             <div class="calc-container">
                 <div class="calc-inputs">
                     <div class="input-group">
-                        <label for="calc-trees"><i class="fa-solid fa-tree" style="color:var(--emerald);"></i> Number of Trees</label>
-                        <input type="number" id="calc-trees" min="0" value="10" placeholder="e.g. 10">
+                        <label for="calc-trees"><i class="fa-solid fa-tree" style="color:var(--emerald);"></i> <span data-i18n="numberTrees">Number of Trees</span></label>
+                        <input type="number" id="calc-trees" min="0" value="10" placeholder="e.g. 10" data-i18n-placeholder="treesPlaceholder">
                     </div>
                     <div class="input-group">
-                        <label for="calc-flowers"><i class="fa-solid fa-seedling" style="color:#f1c40f;"></i> Number of Flowers</label>
-                        <input type="number" id="calc-flowers" min="0" value="50" placeholder="e.g. 50">
+                        <label for="calc-flowers"><i class="fa-solid fa-seedling" style="color:#f1c40f;"></i> <span data-i18n="numberFlowers">Number of Flowers</span></label>
+                        <input type="number" id="calc-flowers" min="0" value="50" placeholder="e.g. 50" data-i18n-placeholder="flowersPlaceholder">
                     </div>
                     <div class="input-group">
-                        <label for="calc-solar-count"><i class="fa-solid fa-solar-panel" style="color:#f1c40f;"></i> Number of Solar Panels</label>
-                        <input type="number" id="calc-solar-count" min="0" value="12" placeholder="e.g. 12">
+                        <label for="calc-solar-count"><i class="fa-solid fa-solar-panel" style="color:#f1c40f;"></i> <span data-i18n="numberPanels">Number of Solar Panels</span></label>
+                        <input type="number" id="calc-solar-count" min="0" value="12" placeholder="e.g. 12" data-i18n-placeholder="panelsPlaceholder">
                     </div>
                     <div class="input-group">
-                        <label for="calc-solar-area"><i class="fa-solid fa-ruler-combined" style="color:#e67e22;"></i> Total Panel Area (m²)</label>
-                        <input type="number" id="calc-solar-area" min="0" value="24" placeholder="e.g. 24">
+                        <label for="calc-solar-area"><i class="fa-solid fa-ruler-combined" style="color:#e67e22;"></i> <span data-i18n="totalPanelArea">Total Panel Area (m²)</span></label>
+                        <input type="number" id="calc-solar-area" min="0" value="24" placeholder="e.g. 24" data-i18n-placeholder="areaPlaceholder">
                     </div>
                 </div>
                 
@@ -246,17 +331,17 @@
                     <div class="calc-stat-item">
                         <i class="fa-solid fa-cloud"></i>
                         <div class="stat-val" id="calc-dynamic-co2">0.85</div>
-                        <div class="stat-label">Estimated kg CO₂ Reduced / Day</div>
+                        <div class="stat-label" data-i18n="estimatedCo2">Estimated kg CO₂ Reduced / Day</div>
                     </div>
                     <div class="calc-stat-item">
                         <i class="fa-solid fa-droplet" style="color:var(--skyblue);"></i>
                         <div class="stat-val" id="calc-dynamic-o2">4.20</div>
-                        <div class="stat-label">Estimated kg O₂ Produced / Day</div>
+                        <div class="stat-label" data-i18n="estimatedO2">Estimated kg O₂ Produced / Day</div>
                     </div>
                     <div class="calc-stat-item">
                         <i class="fa-solid fa-bolt" style="color:#f1c40f;"></i>
                         <div class="stat-val" id="calc-dynamic-energy">0.0</div>
-                        <div class="stat-label">Estimated kWh Generated / Day</div>
+                        <div class="stat-label" data-i18n="estimatedEnergy">Estimated kWh Generated / Day</div>
                     </div>
                 </div>
             </div>
@@ -264,19 +349,19 @@
     </main>
 
     <footer class="glass-footer">
-        <p>&copy; 2026 Denov 2-IMI Eco-school. Crafted with <i class="fa-solid fa-heart" style="color:var(--emerald);"></i> for the Earth.</p>
+        <p><span data-i18n="footerCopyright">&copy; 2026 Denov 2-IMI Eco-school. Crafted with</span> <i class="fa-solid fa-heart" style="color:var(--emerald);"></i> <span data-i18n="footerEarth">for the Earth.</span></p>
     </footer>
 
     <!-- AI Contest Winner Modal -->
     <div id="winner-modal" class="modal-overlay hidden">
         <div class="modal glass-panel winner-card">
-            <h2 class="winner-title">🏆 AI Evaluation Complete! 🏆</h2>
+            <h2 class="winner-title" data-i18n="winnerTitle">🏆 AI Evaluation Complete! 🏆</h2>
             <div class="winner-icon"><i class="fa-solid fa-award"></i></div>
-            <p class="winner-subtitle">The Eco-Friendly Startup Winner is:</p>
+            <p class="winner-subtitle" data-i18n="winnerSubtitle">The Eco-Friendly Startup Winner is:</p>
             <h3 id="winner-name" class="winner-name">John Doe</h3>
-            <p>Project: <span id="winner-project" class="highlight">GreenTech Recycler</span></p>
+            <p><span data-i18n="winnerProjectLabel">Project:</span> <span id="winner-project" class="highlight">GreenTech Recycler</span></p>
             <div class="modal-actions" style="margin-top: 2rem;">
-                <button class="btn primary-btn" onclick="closeWinnerModal()">Celebrate!</button>
+                <button class="btn primary-btn" onclick="closeWinnerModal()" data-i18n="celebrate">Celebrate!</button>
             </div>
         </div>
     </div>
@@ -284,14 +369,14 @@
     <!-- Admin Login Modal -->
     <div id="admin-modal" class="modal-overlay hidden">
         <div class="modal glass-panel">
-            <h2><i class="fa-solid fa-user-shield"></i> Developer Mode</h2>
-            <p>Enter password to unlock inventory controls and modify the counts.</p>
-            <input type="password" id="admin-password" placeholder="Password (hint: eco2026)">
+            <h2><i class="fa-solid fa-user-shield"></i> <span data-i18n="developerMode">Developer Mode</span></h2>
+            <p data-i18n="adminDescription">Enter password to unlock inventory controls and modify the counts.</p>
+            <input type="password" id="admin-password" placeholder="Password (hint: eco2026)" data-i18n-placeholder="passwordPlaceholder">
             <div class="modal-actions">
-                <button class="btn secondary-btn" onclick="closeAdminModal()">Cancel</button>
-                <button class="btn primary-btn" onclick="verifyAdmin()">Unlock Access</button>
+                <button class="btn secondary-btn" onclick="closeAdminModal()" data-i18n="cancel">Cancel</button>
+                <button class="btn primary-btn" onclick="verifyAdmin()" data-i18n="unlockAccess">Unlock Access</button>
             </div>
-            <p id="login-error" class="error-msg hidden">Incorrect password. Access denied.</p>
+            <p id="login-error" class="error-msg hidden" data-i18n="incorrectPassword">Incorrect password. Access denied.</p>
         </div>
     </div>
 
